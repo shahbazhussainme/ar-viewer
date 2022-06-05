@@ -9,7 +9,7 @@ require("./middleware/common")(app);
 
 // Routes
 app.use("/api", require("./routes"));
-app.get("/", (req, res) => {
+app.use("/", (req, res) => {
   res.json({ message: "welcomre! app working" });
 });
 
