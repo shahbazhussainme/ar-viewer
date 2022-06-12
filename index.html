@@ -59,7 +59,7 @@
       async function myFunction() {
         let formData = new FormData();
         formData.append("model", fileupload.files[0]);
-        await fetch("http://localhost:5005/api/models/uploadModel", {
+        await fetch("http://3.122.95.212/api/models/uploadModel", {
           method: "POST",
           body: formData,
         })
