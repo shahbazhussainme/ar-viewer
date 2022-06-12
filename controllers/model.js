@@ -129,3 +129,14 @@ exports.deleteModel = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+//upload models for specific customer
+
+exports.uploadModels = async (req, res) => {
+  try {
+    res.status(200).send({ message: "File Uploaded Successfully" });
+  } catch (error) {
+    console.log("Error--->", error.message);
+
+    res.status(500).json({ message: error.message });
+  }
+};
