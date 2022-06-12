@@ -38,7 +38,7 @@
         >
           Upload Model
         </button>
-        <p id="demo"></p>
+        <p id="demo" class="pt-2"></p>
       </div>
       <table class="table">
         <thead>
@@ -64,10 +64,9 @@
           body: formData,
         })
           .then((res) => res.json())
-          .then(
-            (res) =>
-              (document.getElementById("demo").innerHTML = res.data.message)
-          )
+          .then((res) => {
+            document.getElementById("demo").innerHTML = res.message;
+          })
           .catch(
             (err) => (res) =>
               (document.getElementById("demo").innerHTML = res.data.message)
