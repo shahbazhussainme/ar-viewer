@@ -40,7 +40,7 @@
         </button>
         <p id="demo" class="pt-2"></p>
       </div>
-      <table class="table">
+      <!-- <table class="table">
         <thead>
           <tr>
             <th scope="col">#Sr</th>
@@ -53,13 +53,13 @@
             <td>Mark</td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
     </div>
     <script>
       async function myFunction() {
         let formData = new FormData();
         formData.append("model", fileupload.files[0]);
-        await fetch("http://3.122.95.212/api/models/uploadModel", {
+        await fetch("http://localhost:5005/api/models/uploadModel", {
           method: "POST",
           body: formData,
         })

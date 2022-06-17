@@ -1,12 +1,41 @@
 const multer = require("multer");
+const fs = require("fs");
+const crypto = require("crypto");
+const path = require("path");
 
 const storage = (field) =>
   multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, `uploads/${field}`);
+      const { customer_name } = req.body;
+      const path = `./uploads/${customer_name}`;
+      fs.mkdirSync(path, { recursive: true });
+
+      cb(null, path);
+      // var hash = crypto.createHash("sha256");
+      // let filename = file.fieldname;
+      // var finalPath = path;
+      // console.log
+      // var outStream = fs.createWriteStream(finalPath);
+
+      // // file.stream.pipe(outStream);
+      // // outStream.on("error", cb);
+      // // file.stream.on("data", function (chunk) {
+      // //   hash.update(chunk);
+      // // });
+
+      // // outStream.on("finish", function () {
+      // //   cb(null, {
+      // //     destination: __dirname,
+      // //     filename: filename,
+      // //     path: finalPath,
+      // //     size: outStream.bytesWritten,
+      // //     hash: hash.digest("hex"),
+      // //   });
+      // // });
     },
     filename: (req, file, cb) => {
-      cb(null, Date.now() + "-" + file.originalname);
+      // cb(null, Date.now() + "-" + file.originalname);
+      cb(null, file.originalname);
     },
   });
 
