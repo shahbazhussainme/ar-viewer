@@ -53,7 +53,7 @@ const uploader = (folder) =>
   multer({
     storage: storage(folder),
     fileFilter: fileFilter(["application/octet-stream"]),
-    limits: { fileSize: 15 * 1024 * 1024 },
+    // limits: { fileSize: 15 * 1024 * 1024 },
   });
 
 module.exports = (folder = "/", field, type = "single") => {
