@@ -67,7 +67,9 @@ exports.getSingleCustomer = async (req, res) => {
     //params customer id
     let customerId = req.params.id;
     // Check if Customer exist
-    let customer = await Customer.findOne({ _id: customerId });
+    let customer = await Customer.findOne({ _id: customerId }).populate(
+      "models"
+    );
     if (!customer)
       return res.status(400).send({ message: STRINGS.ERRORS.CustomerNotFound });
 
@@ -78,6 +80,25 @@ exports.getSingleCustomer = async (req, res) => {
   }
 };
 
+//get uniqueId Exists
+
+exports.getUniqueId = async (req, res) => {
+  try {
+    //params customer id
+    let uniqueId = req.params.id;
+    // Check if Customer exist
+    let customer = await Customer.findOne({ uniqueId: uniqueId }).populate(
+      "models"
+    );
+    if (!customer)
+      return res.status(400).send({ message: STRINGS.ERRORS.CustomerNotFound });
+
+    return res.json({ customer });
+  } catch (error) {
+    console.log("Error------>", error);
+    res.status(500).json({ message: error.message });
+  }
+};
 //get all Customers
 
 exports.getAllCustomers = async (req, res) => {

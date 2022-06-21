@@ -6,6 +6,7 @@ const {
   getSingleCustomer,
   getAllCustomers,
   deleteCustomer,
+  getUniqueId,
 } = require("../controllers/customer.js");
 const {
   customerValidator,
@@ -16,9 +17,12 @@ const {
 // create Customer
 router.post("/", customerValidator, isValidated, createCustomer);
 // update Customer
-router.patch("/:id", updateCustomerValidator, isValidated, updateCustomer);
+router.put("/:id", updateCustomerValidator, isValidated, updateCustomer);
 // get single Customer
 router.get("/:id", getSingleCustomer);
+// check unique id exist
+router.get("/uniqueId/:id", getUniqueId);
+
 // get All Customers By User
 router.get("/", getAllCustomers);
 // delete Customer By User

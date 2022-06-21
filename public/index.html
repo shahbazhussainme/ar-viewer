@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>ArViewer</title>
+
+    <!-- bootstrap css -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      href="vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+
+    <!-- don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td,
+      th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+    </style>
+    <!-- we will put our teact component inside this div -->
+    <div id="root"></div>
+
+    <!-- load react -->
+    <script
+      src="https://unpkg.com/react/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-router@5.2.1/umd/react-router.min.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-router-dom@5.2.1/umd/react-router-dom.min.js"
+      crossorigin
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+    ></script>
+
+    <!-- layout. -->
+    <script src="context.js" defer type="text/babel"></script>
+    <script src="layout/navbar.js" defer type="text/babel"></script>
+    <script src="layout/sidebar.js" defer type="text/babel"></script>
+    <script src="layout/layout.js" defer type="text/babel"></script>
+    <script src="layout/footer.js" defer type="text/babel"></script>
+    <!-- pages -->
+    <script src="pages/customer.js" defer type="text/babel"></script>
+    <script src="pages/models.js" defer type="text/babel"></script>
+    <script src="pages/createCustomer.js" defer type="text/babel"></script>
+    <script src="pages/editCustomer.js" defer type="text/babel"></script>
+    <script src="pages/createModel.js" defer type="text/babel"></script>
+    <script src="pages/editModel.js" defer type="text/babel"></script>
+    <script src="pages/uploadModel.js" defer type="text/babel"></script>
+    <script src="pages/modelUrls.js" defer type="text/babel"></script>
+
+    <script src="createaccount.js" defer type="text/babel"></script>
+    <script src="login.js" defer type="text/babel"></script>
+    <script src="deposit.js" defer type="text/babel"></script>
+    <script src="withdraw.js" defer type="text/babel"></script>
+    <!-- <script src="transactions.js" defer type="text/babel"></script> -->
+    <script src="balance.js" defer type="text/babel"></script>
+    <script src="alldata.js" defer type="text/babel"></script>
+    <script src="home.js" defer type="text/babel"></script>
+
+    <script src="index.js" defer type="text/babel"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
+  </body>
+</html>

@@ -6,32 +6,10 @@ const path = require("path");
 const storage = (field) =>
   multer.diskStorage({
     destination: (req, file, cb) => {
-      const { customer_name } = req.body;
-      const path = `./uploads/${customer_name}`;
+      const { id } = req.params;
+      const path = `./uploads/${id}`;
       fs.mkdirSync(path, { recursive: true });
-
       cb(null, path);
-      // var hash = crypto.createHash("sha256");
-      // let filename = file.fieldname;
-      // var finalPath = path;
-      // console.log
-      // var outStream = fs.createWriteStream(finalPath);
-
-      // // file.stream.pipe(outStream);
-      // // outStream.on("error", cb);
-      // // file.stream.on("data", function (chunk) {
-      // //   hash.update(chunk);
-      // // });
-
-      // // outStream.on("finish", function () {
-      // //   cb(null, {
-      // //     destination: __dirname,
-      // //     filename: filename,
-      // //     path: finalPath,
-      // //     size: outStream.bytesWritten,
-      // //     hash: hash.digest("hex"),
-      // //   });
-      // // });
     },
     filename: (req, file, cb) => {
       // cb(null, Date.now() + "-" + file.originalname);
@@ -77,15 +55,7 @@ async function addPathToBody(req, res, next) {
 const uploader = (folder) =>
   multer({
     storage: storage(folder),
-    // fileFilter: fileFilter([
-    //   "image/png",
-    //   "image/jpg",
-    //   "image/jpeg",
-    //   "image/gif",
-    //   "video/mp4",
-    //   "application/pdf",
-    //   "application/octet-stream",
-    // ]),
+    fileFilter: fileFilter(["application/octet-stream"]),
     limits: { fileSize: 15 * 1024 * 1024 },
   });
 
