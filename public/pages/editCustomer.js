@@ -16,9 +16,7 @@ function editCustomer() {
     getCustomer(paramId);
   }, []);
   const getCustomer = async (paramId) => {
-    const res = await axios.get(
-      `http://localhost:5005/api/customers/${paramId}`
-    );
+    const res = await axios.get(`${BASE_URL}/customers/${paramId}`);
     const { first_name, last_name, email } = res.data.customer;
     setformData({
       first_name,
@@ -29,10 +27,7 @@ function editCustomer() {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(
-        `http://localhost:5005/api/customers/${paramId}`,
-        formData
-      );
+      const res = await axios.put(`${BASE_URL}/customers/${paramId}`, formData);
       alert(res.data.message);
       window.location.href = "/#";
     } catch (error) {
@@ -76,6 +71,7 @@ function editCustomer() {
             name="email"
             required={true}
             value={formData.email}
+            disabled
             onChange={handleChange}
             className="form-control form-control-user"
             id="exampleInputEmail"

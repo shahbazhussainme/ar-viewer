@@ -11,10 +11,7 @@ function createCustomer() {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "http://localhost:5005/api/customers",
-        formData
-      );
+      const res = await axios.post(`${BASE_URL}/customers`, formData);
       alert(res.data.message);
       window.location.href = "/#";
     } catch (error) {

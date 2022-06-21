@@ -7,12 +7,15 @@ const {
   getAllCustomers,
   deleteCustomer,
   getUniqueId,
+  uploadModels,
+  getAllModelByCustomer,
 } = require("../controllers/customer.js");
 const {
   customerValidator,
   updateCustomerValidator,
   isValidated,
 } = require("../middleware/validators");
+const upload = require("../middleware/multer.js");
 
 // create Customer
 router.post("/", customerValidator, isValidated, createCustomer);
@@ -27,5 +30,10 @@ router.get("/uniqueId/:id", getUniqueId);
 router.get("/", getAllCustomers);
 // delete Customer By User
 router.delete("/:id", deleteCustomer);
+//upload models for specific customer
+router.post("/uploadModel/:id", upload("/", "models", "array"), uploadModels);
+//get all model for customer
+router.post("/getModel", getAllModelByCustomer);
+
 // Export
 module.exports = router;

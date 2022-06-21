@@ -4,14 +4,12 @@ function Customer() {
     getCustomers();
   }, []);
   const getCustomers = async () => {
-    const res = await axios.get("http://localhost:5005/api/customers");
+    const res = await axios.get(`${BASE_URL}/customers`);
     setcustomers(res.data.customers);
   };
   const handleDelete = async (paramId) => {
     try {
-      const res = await axios.delete(
-        `http://localhost:5005/api/customers/${paramId}`
-      );
+      const res = await axios.delete(`${BASE_URL}/customers/${paramId}`);
       alert(res.data.message);
       window.location.reload();
     } catch (error) {

@@ -17,15 +17,7 @@ exports.updateCustomerValidator = [
   check("first_name", "First Name is required.").notEmpty(),
   check("last_name", "First Name is required.").notEmpty(),
 ];
-// model Validation
 
-exports.modelValidator = [
-  check("customer_email", "customer_email is required.").notEmpty().trim(),
-];
-// update customer Validation
-exports.updateModelValidator = [
-  check("url", "url is required.").notEmpty().trim(),
-];
 /*
 ======================
 Result

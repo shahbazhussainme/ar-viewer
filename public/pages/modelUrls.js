@@ -1,15 +1,17 @@
 function modelUrls() {
   const [models, setmodels] = React.useState("");
-  const [paramId, setparamId] = React.useState("");
 
   React.useEffect(() => {
     const paramId = window.location.hash.split("#/modelUrls/")[1];
-    setparamId(paramId);
+
     getModels(paramId);
   }, []);
   const getModels = async (paramId) => {
-    const res = await axios.get(`http://localhost:5005/uploads/${paramId}`);
-    setmodels(res.data.files);
+    const res = await axios.post(`${BASE_URL}/customers/getModel`, {
+      uniqueId: paramId,
+    });
+    const { models_url } = res.data.model;
+    setmodels(models_url);
   };
 
   return (

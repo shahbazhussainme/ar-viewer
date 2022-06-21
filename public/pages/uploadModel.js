@@ -3,8 +3,9 @@ function uploadModel() {
   const [paramId, setparamId] = React.useState("");
 
   const handleChange = (e) => {
-    const file = e.target.files[0];
-    setModel(file);
+    const files = e.target.files;
+    console.log(files, "files");
+    setModel(files);
   };
   React.useEffect(() => {
     const paramId = window.location.hash.split("#/uploadModel/")[1];
@@ -13,10 +14,7 @@ function uploadModel() {
   }, []);
   const isParamIDExist = async (paramId) => {
     try {
-      const res = await axios.get(
-        `http://localhost:5005/api/customers/uniqueId/${paramId}`
-      );
-      const uniqueId = res.data.customer.uniqueId;
+      const res = await axios.get(`${BASE_URL}/customers/uniqueId/${paramId}`);
     } catch (error) {
       alert("UniqueId Does Not Exist");
       window.location.href = "#/";
@@ -25,11 +23,14 @@ function uploadModel() {
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("model", model);
+    for (let index = 0; index < model.length; index++) {
+      const element = model[index];
+      formData.append("models", element);
+    }
 
     try {
       const res = await axios.post(
-        `http://localhost:5005/api/models/uploadModel/${paramId}`,
+        `${BASE_URL}/customers/uploadModel/${paramId}`,
         formData
       );
       alert(res.data.message);
@@ -60,6 +61,7 @@ function uploadModel() {
             type="file"
             required={true}
             name="model"
+            multiple
             onChange={handleChange}
             className="form-control "
           />

@@ -27,13 +27,6 @@ function SideBar() {
           <span>Customers</span>
         </a>
       </li>
-      {/* Nav Item - Tables */}
-      <li className="nav-item">
-        <a className="nav-link" href="/#/models">
-          <i className="fas fa-fw fa-table" />
-          <span>Models</span>
-        </a>
-      </li>
 
       {/* Divider */}
       <hr className="sidebar-divider d-none d-md-block" />

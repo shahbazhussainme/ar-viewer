@@ -111,6 +111,20 @@ exports.getAllCustomers = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+//get all model for customer
+
+exports.getAllModelByCustomer = async (req, res) => {
+  try {
+    let { uniqueId } = req.body;
+    //find all model by
+    let model = await Model.findOne({ uniqueId: uniqueId });
+    return res.json({ model });
+  } catch (error) {
+    console.log("Error------>", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 //delete single Customer
 
 exports.deleteCustomer = async (req, res) => {
@@ -129,6 +143,62 @@ exports.deleteCustomer = async (req, res) => {
     return res.json({ message: STRINGS.TEXTS.CustomerDeleted });
   } catch (error) {
     console.log("Error------>", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+//get all Models for customer
+
+exports.getAllCustomers = async (req, res) => {
+  try {
+    //find all customers
+    let customers = await Customer.find();
+    return res.json({ customers });
+  } catch (error) {
+    console.log("Error------>", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+//upload models for specific customer
+
+exports.uploadModels = async (req, res) => {
+  try {
+    const files = req.files;
+    let models_url = [];
+    files &&
+      files.map((file) => {
+        let url = process.env.BASE_URL + "/" + file.path;
+        models_url.push(url);
+      });
+    let { id: uniqueId } = req.params;
+    //check if customer email exists
+    let customerExist = await Customer.findOne({ uniqueId: uniqueId });
+    if (!customerExist) {
+      return res.status(403).json({ message: STRINGS.ERRORS.CustomerNotFound });
+    }
+
+    //create new Model
+    let model = await Model.create({
+      uniqueId: uniqueId,
+      models_url: models_url,
+    });
+    //one customer has many models
+    await Customer.findOneAndUpdate(
+      {
+        uniqueId: uniqueId,
+      },
+      {
+        $push: {
+          models: model._id,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+    res.status(200).send({ message: "File Uploaded Successfully" });
+  } catch (error) {
+    console.log("Error--->", error.message);
+
     res.status(500).json({ message: error.message });
   }
 };

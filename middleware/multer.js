@@ -1,7 +1,5 @@
 const multer = require("multer");
 const fs = require("fs");
-const crypto = require("crypto");
-const path = require("path");
 
 const storage = (field) =>
   multer.diskStorage({
@@ -12,7 +10,6 @@ const storage = (field) =>
       cb(null, path);
     },
     filename: (req, file, cb) => {
-      // cb(null, Date.now() + "-" + file.originalname);
       cb(null, file.originalname);
     },
   });
@@ -36,7 +33,7 @@ async function addPathToBody(req, res, next) {
             file.path != undefined ? file.path.replace(/\\/g, "/") : null
           )
         );
-        req.body["images"] = files;
+        req.body["models"] = files;
       }
     } else {
       let files = [];
@@ -45,7 +42,7 @@ async function addPathToBody(req, res, next) {
           file.path != undefined ? file.path.replace(/\\/g, "/") : null
         );
       });
-      req.body["images"] = files;
+      req.body["models"] = files;
     }
   }
   if (req.file) req.body["image"] = req.file.path.replace(/\\/g, "/");

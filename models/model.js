@@ -4,8 +4,8 @@ const STRINGS = require("../utils/texts");
 
 const modelSchema = new Schema(
   {
-    customer_email: String,
-    url: String,
+    uniqueId: String,
+    models_url: [],
   },
   {
     timestamps: true,
