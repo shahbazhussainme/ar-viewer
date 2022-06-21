@@ -10,11 +10,14 @@ function SideBar() {
         href="index.html"
       >
         <div className="sidebar-brand-icon rotate-n-15">
-          <i className="fas fa-laugh-wink" />
+          <img
+            className="img-profile rounded-circle"
+            width={50}
+            height={50}
+            src="img/logo.jpeg"
+          />
         </div>
-        <div className="sidebar-brand-text mx-3">
-          SB Admin <sup>2</sup>
-        </div>
+        <div className="sidebar-brand-text mx-3">ArViewer</div>
       </a>
       {/* Divider */}
       <hr className="sidebar-divider my-0" />

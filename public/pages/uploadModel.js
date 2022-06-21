@@ -42,7 +42,7 @@ function uploadModel() {
   return (
     <div>
       <div className="d-sm-flex align-items-c justify-content-between mb-4">
-        <h1 className="h3 mb-0 text-gray-800">Edit Customer</h1>
+        <h1 className="h3 mb-0 text-gray-800">Upload Model</h1>
       </div>
       <form className="user" onSubmit={onSubmit}>
         <div className="form-group">
