@@ -258,7 +258,7 @@ exports.deleteModel = async (req, res) => {
 
     if (!modelExist)
       return res.status(400).send({ message: STRINGS.ERRORS.ModelNotFound });
-    let modelP = model_url.split("http://localhost:50005/uploads/")[1];
+    let modelP = model_url.split(`${process.env.BASE_URL}/`)[1];
     let pathname = path.resolve("./");
     const directoryPath = path.join(pathname, `/uploads/${modelP}`);
 
