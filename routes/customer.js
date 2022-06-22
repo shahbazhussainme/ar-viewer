@@ -8,6 +8,7 @@ const {
   deleteCustomer,
   getUniqueId,
   uploadModels,
+  deleteModel,
   getAllModelByCustomer,
 } = require("../controllers/customer.js");
 const {
@@ -34,6 +35,8 @@ router.delete("/:id", deleteCustomer);
 router.post("/uploadModel/:id", upload("/", "models", "array"), uploadModels);
 //get all model for customer
 router.post("/getModel", getAllModelByCustomer);
+// delete model url
+router.post("/deleteModel", deleteModel);
 
 // Export
 module.exports = router;

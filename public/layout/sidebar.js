@@ -7,7 +7,7 @@ function SideBar() {
       {/* Sidebar - Brand */}
       <a
         className="sidebar-brand d-flex align-items-center justify-content-center"
-        href="index.html"
+        href="#/"
       >
         <div className="sidebar-brand-icon rotate-n-15">
           <img
@@ -17,7 +17,7 @@ function SideBar() {
             src="img/logo.jpeg"
           />
         </div>
-        <div className="sidebar-brand-text mx-3">ArViewer</div>
+        <div className="sidebar-brand-text mx-3">Speedy Brilliant</div>
       </a>
       {/* Divider */}
       <hr className="sidebar-divider my-0" />

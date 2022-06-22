@@ -1,6 +1,8 @@
 const STRINGS = require("../utils/texts");
 const Customer = require("../models/customer");
 const Model = require("../models/model");
+const fs = require("fs");
+const path = require("path");
 
 const { v4: uuidv4 } = require("uuid");
 // **********************
@@ -135,11 +137,27 @@ exports.deleteCustomer = async (req, res) => {
     let customerExist = await Customer.findOne({ _id: customerId });
     if (!customerExist)
       return res.status(400).send({ message: STRINGS.ERRORS.CustomerNotFound });
+    let pathname = path.resolve("./");
+    const directoryPath = path.join(
+      pathname,
+      `/uploads/${customerExist.uniqueId}`
+    );
+
+    fs.rmdirSync(
+      directoryPath,
+      { recursive: true },
+
+      () => {
+        console.log("Folder Deleted!");
+      }
+    );
+
     //remove Customer
     await Model.deleteMany({
       customer_email: customerExist.email,
     });
     await Customer.findByIdAndRemove({ _id: customerId });
+
     return res.json({ message: STRINGS.TEXTS.CustomerDeleted });
   } catch (error) {
     console.log("Error------>", error);
@@ -171,11 +189,36 @@ exports.uploadModels = async (req, res) => {
       });
     let { id: uniqueId } = req.params;
     //check if customer email exists
-    let customerExist = await Customer.findOne({ uniqueId: uniqueId });
+    let customerExist = await Customer.findOne({ uniqueId: `${uniqueId}` });
     if (!customerExist) {
       return res.status(403).json({ message: STRINGS.ERRORS.CustomerNotFound });
     }
-
+    // model exist
+    let modelExist = await Model.findOne({ uniqueId: `${uniqueId}` });
+    if (modelExist) {
+      let _id = modelExist._id;
+      let existModelUrls = modelExist.model_url;
+      let newModelUrls = [];
+      if (existModelUrls) {
+        newModelUrls = [existModelUrls, ...models_url];
+      } else {
+        newModelUrls = models_url;
+      }
+      await Model.findOneAndUpdate(
+        {
+          _id: _id,
+        },
+        {
+          $set: {
+            models_url: newModelUrls,
+          },
+        },
+        {
+          new: true,
+        }
+      );
+      return res.status(200).send({ message: "File Uploaded Successfully" });
+    }
     //create new Model
     let model = await Model.create({
       uniqueId: uniqueId,
@@ -197,8 +240,58 @@ exports.uploadModels = async (req, res) => {
     );
     res.status(200).send({ message: "File Uploaded Successfully" });
   } catch (error) {
-    console.log("Error--->", error.message);
+    console.log("Error--->iii", error);
 
+    res.status(500).json({ message: error.message });
+  }
+};
+//delete single model
+
+exports.deleteModel = async (req, res) => {
+  try {
+    //params customer id
+    let { model_url, uniqueId } = req.body;
+    // Check if Model exist
+    let modelExist = await Model.findOne({
+      uniqueId: uniqueId,
+    });
+
+    if (!modelExist)
+      return res.status(400).send({ message: STRINGS.ERRORS.ModelNotFound });
+    let modelP = model_url.split("http://localhost:50005/uploads/")[1];
+    let pathname = path.resolve("./");
+    const directoryPath = path.join(pathname, `/uploads/${modelP}`);
+
+    fs.unlinkSync(
+      directoryPath,
+      { recursive: true },
+
+      () => {
+        console.log("Folder Deleted!");
+      }
+    );
+    let models_url = modelExist.models_url.filter(
+      (model) => model !== model_url
+    );
+    let modelId = modelExist._id;
+    //remove model url
+    await Model.findOneAndUpdate(
+      {
+        _id: modelId,
+      },
+      {
+        $set: {
+          models_url: models_url,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+    // await Customer.findByIdAndRemove({ _id: uniqueId });
+    return res.json({ message: STRINGS.TEXTS.ModelDeleted });
+  } catch (error) {
+    console.log("Error------>", error);
     res.status(500).json({ message: error.message });
   }
 };

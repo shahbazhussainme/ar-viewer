@@ -1,7 +1,9 @@
 function NavBar() {
-  let isAuthenticate = localStorage.getItem("token");
-  let email = localStorage.getItem("username");
-
+  let isAuthenticate = localStorage.getItem("user");
+  let user;
+  if (isAuthenticate) {
+    user = JSON.parse(isAuthenticate);
+  }
   return (
     <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
       {/* Sidebar Toggle (Topbar) */}
@@ -20,7 +22,7 @@ function NavBar() {
         {/* Nav Item - Messages */}
         <div className="topbar-divider d-none d-sm-block" />
         {/* Nav Item - User Information */}
-        {/* <li className="nav-item dropdown no-arrow">
+        <li className="nav-item dropdown no-arrow">
           <a
             className="nav-link dropdown-toggle"
             href="#"
@@ -31,7 +33,7 @@ function NavBar() {
             aria-expanded="false"
           >
             <span className="mr-2 d-none d-lg-inline text-gray-600 small">
-              Douglas McGee
+              {user && user.email}
             </span>
             <img
               className="img-profile rounded-circle"
@@ -39,34 +41,24 @@ function NavBar() {
             />
           </a>
           {/* Dropdown - User Information */}
-        {/* <div
+          <div
             className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
             aria-labelledby="userDropdown"
           >
-            <a className="dropdown-item" href="#">
-              <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400" />
-              Profile
-            </a>
-            <a className="dropdown-item" href="#">
-              <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400" />
-              Settings
-            </a>
-            <a className="dropdown-item" href="#">
-              <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400" />
-              Activity Log
-            </a>
-            <div className="dropdown-divider" />
             <a
               className="dropdown-item"
-              href="#"
+              onClick={() => {
+                localStorage.clear();
+                window.location.reload();
+              }}
               data-toggle="modal"
               data-target="#logoutModal"
             >
               <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" />
               Logout
             </a>
-          </div> */}
-        {/* </li> */}
+          </div>
+        </li>
       </ul>
     </nav>
   );
